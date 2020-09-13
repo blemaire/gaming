@@ -11,7 +11,7 @@ export class EndoWarController {
   @Get('status')
   getHello(): Observable<string> {
     return new Observable((observer: Observer<string>) => {
-      puppeteer.launch()
+      puppeteer.launch({args: ['--no-sandbox']})
         .then(browser => {
           browser.newPage()
             .then(page => {
