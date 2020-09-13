@@ -2,7 +2,9 @@ import {Controller, Get} from '@nestjs/common';
 import {Observable, Observer} from 'rxjs';
 import * as puppeteer from 'puppeteer';
 import {EndoWarService} from './endo-war.service';
+import {ApiTags} from '@nestjs/swagger';
 
+@ApiTags('endo-war')
 @Controller('endo-war')
 export class EndoWarController {
   constructor(private readonly endoWarService: EndoWarService) {
@@ -11,7 +13,12 @@ export class EndoWarController {
   @Get('status')
   getHello(): Observable<string> {
     return new Observable((observer: Observer<string>) => {
-      puppeteer.launch({args: ['--no-sandbox']})
+      puppeteer.launch({
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+          ],
+        })
         .then(browser => {
           browser.newPage()
             .then(page => {
