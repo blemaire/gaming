@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Thalounette bot",
   "main": "src/index.ts",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
@@ -24,7 +27,8 @@
     "start:dev": "nodemon",
     "dev": "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon dist/index.js\"",
     "build": "tsc",
-    "start": "tsc && node dist/index.js"
+    "start": "tsc && node dist/index.js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
