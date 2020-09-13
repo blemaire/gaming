@@ -13,14 +13,11 @@
 // client.connect();
 
 
-const express = require('express')
-const app = express()
-const port = 80
+import express from 'express';
 
-app.get('/', (req: any, res: any) => {
-  res.send('Hello World!')
-})
+// @ts-ignore
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+const app = express();
+app.get('/', (req: any, res: any) => res.send('Hello World!'));
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
