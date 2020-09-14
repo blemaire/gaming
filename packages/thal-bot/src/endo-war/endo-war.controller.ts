@@ -24,7 +24,7 @@ export class EndoWarController {
             [
               'Campagne Endo-War: ' + document.querySelector('.col-sidebar .panel-heading .panel-title')?.textContent,
               document.querySelector('.col-sidebar .status__column.contribution')?.textContent,
-              'Derniers participants: ' + Array.from(document.querySelectorAll('.fdr-contributor-name')).slice(0, 5).map(element => element.textContent).join(', '),
+              'Derniers participants: ' + Array.from(document.querySelectorAll('.fdr-contributor-name')).slice(0, 5).map(element => element.textContent.split(' ').shift()).join(', '),
               // document.querySelector('.col-sidebar .status__column.delay')?.textContent,
               'https://www.leetchi.com/c/endo-war',
             ]
