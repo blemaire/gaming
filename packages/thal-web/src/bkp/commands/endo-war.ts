@@ -1,11 +1,14 @@
-import * as tmi from 'tmi.js';
 import puppeteer from 'puppeteer';
+import * as tmi from 'tmi.js';
 import {ICommand} from './abstract';
 
 export class EndoWarCommand implements ICommand {
   public args = false;
+
   public command = 'endoWar';
+
   public description = 'Montre le status de la campagne EndoWar';
+
   public usage = 'endoWar';
 
   constructor(public client: tmi.Client) {

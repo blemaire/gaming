@@ -6,5 +6,6 @@ export interface ICommand {
   command: string;
   description: string;
   usage: string;
+
   exec(target: string, context: Record<string, string>, msg: string, ...args: string[]): void;
 }

@@ -4,7 +4,7 @@ import {EndoWarService} from './endo-war.service';
 
 @Module({
   controllers: [EndoWarController],
-  providers: [EndoWarService]
+  providers: [EndoWarService],
 })
 export class EndoWarModule {
 }

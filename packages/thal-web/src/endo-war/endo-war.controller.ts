@@ -20,56 +20,56 @@ export class EndoWarController {
     return new Observable((observer: Observer<TextResponseDto>) => {
       this.openCampaign().then(({page, browser}) => {
         page.evaluate(() =>
-            [
-              document.querySelector('.col-sidebar .panel-heading .panel-title')?.textContent,
-              document.querySelector('.col-sidebar .status__column.contribution')?.textContent,
-              'Derniers participants: ' + Array.from(document.querySelectorAll('.fdr-contributor-name')).slice(0, 10).map(element => element.textContent.split(' ').shift()).join(', '),
-              // document.querySelector('.col-sidebar .status__column.delay')?.textContent,
-              'https://www.leetchi.com/c/endo-war',
-            ]
-          )
-          .then((parts: string[]) => {
-            let [total, ...rest] = parts[0].split('€');
+          [
+            document.querySelector('.col-sidebar .panel-heading .panel-title')?.textContent,
+            document.querySelector('.col-sidebar .status__column.contribution')?.textContent,
+            'Derniers participants: ' + Array.from(document.querySelectorAll('.fdr-contributor-name')).slice(0, 10).map(element => element.textContent.split(' ').shift()).join(', '),
+            // document.querySelector('.col-sidebar .status__column.delay')?.textContent,
+            'https://www.leetchi.com/c/endo-war',
+          ],
+        )
+        .then((parts: string[]) => {
+          let [total] = parts[0].split('€');
 
-            if (ADDITIONAL_AMOUNT) {
-              total = (Number.parseInt(total.replace(/\s/g, ''), 10) + ADDITIONAL_AMOUNT).toString();
-            }
+          if (ADDITIONAL_AMOUNT) {
+            total = (Number.parseInt(total.replace(/\s/g, ''), 10) + ADDITIONAL_AMOUNT).toString();
+          }
 
-            if (ADDITIONAL_PARTICIPANTS_COUNT) {
-              let [count, rest] = parts[1].trim().replace(/\n/g, ' ').split(' ');
-              count = (Number.parseInt(count) + ADDITIONAL_PARTICIPANTS_COUNT).toString();
-              parts[1] = [count, rest].join(' ');
-            }
+          if (ADDITIONAL_PARTICIPANTS_COUNT) {
+            let [count, rest] = parts[1].trim().replace(/\n/g, ' ').split(' ');
+            count = (Number.parseInt(count) + ADDITIONAL_PARTICIPANTS_COUNT).toString();
+            parts[1] = [count, rest].join(' ');
+          }
 
-            parts[0] = `Campagne Endo-War: ${total} € collectés`;
+          parts[0] = `Campagne Endo-War: ${total} € collectés`;
 
-            observer.next({
-              text: parts
-                .map(this.sanitiseText)
-                .join('. ')
-            });
-            observer.complete();
-
-            return browser.close();
+          observer.next({
+            text: parts
+            .map(EndoWarController.sanitiseText)
+            .join('. '),
           });
+          observer.complete();
+
+          return browser.close();
+        });
       });
     });
   }
 
-  private openCampaign(): Promise<{ page: Page, browser: Browser }> {
+  private openCampaign(): Promise<{page: Page, browser: Browser}> {
     return launch({
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
-      .then((browser: Browser) => {
-        return browser.newPage().then(page => {
-          return page.goto('https://www.leetchi.com/c/endo-war').then(() => ({page, browser}));
-        });
+    .then((browser: Browser) => {
+      return browser.newPage().then(page => {
+        return page.goto('https://www.leetchi.com/c/endo-war').then(() => ({page, browser}));
       });
+    });
   }
 
-  private sanitiseText(text: string): string {
+  private static sanitiseText(text: string): string {
     return text.replace(/(\r\n|\n|\r)/gm, ' ')
-      .trim()
-      .replace(/\s+/g, ' ');
+    .trim()
+    .replace(/\s+/g, ' ');
   }
 }

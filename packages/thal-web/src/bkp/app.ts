@@ -21,7 +21,7 @@ export class App {
         return;
       }
 
-      (this.commands.get(command) as ICommand).exec(target, context, message, ...args)
+      (this.commands.get(command) as ICommand).exec(target, context, message, ...args);
     });
   }
 

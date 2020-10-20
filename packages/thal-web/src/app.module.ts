@@ -4,4 +4,5 @@ import {EndoWarModule} from './endo-war/endo-war.module';
 @Module({
   imports: [EndoWarModule],
 })
-export class AppModule {}
+export class AppModule {
+}
