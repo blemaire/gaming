@@ -5,9 +5,8 @@
     "node": "14.x"
   },
   "scripts": {
-    "bootstrap": "lerna exec npm install",
     "build": "lerna run build",
-    "postinstall": "npm run bootstrap"
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
