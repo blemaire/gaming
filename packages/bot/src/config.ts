@@ -1,13 +1,20 @@
 import dotenv from 'dotenv';
 
-const result = dotenv.config();
-
-if (result.error) {
-  throw result.error;
-}
-
 export interface IConfig {
   DISCORD_TOKEN: string;
 }
 
-export const config: IConfig = result.parsed as unknown as IConfig;
+export let config: IConfig;
+
+try {
+  const result = dotenv.config();
+  if (result.error) {
+    throw result.error;
+  }
+
+  config = result.parsed as unknown as IConfig;
+} catch (e) {
+  config = process.env as unknown as IConfig;
+}
+
+
