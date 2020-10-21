@@ -1,19 +1,9 @@
-import Discord from 'discord.js';
-import {config} from './config';
+import 'reflect-metadata';
+import {Bot} from './bot/bot';
+import * as commands from './commands';
+import {container} from './utils/inversify.config';
 
-const client = new Discord.Client();
+let bot = container.get<Bot>(Bot);
 
-client.on('ready', () => {
-  if (client.user) {
-    console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setPresence({status: 'online'});
-  }
-});
-
-client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-  }
-});
-
-client.login(config.DISCORD_TOKEN);
+bot.setCommands(commands);
+bot.start();

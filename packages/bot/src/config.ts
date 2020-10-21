@@ -1,20 +1,20 @@
 import dotenv from 'dotenv';
+import {injectable} from './utils/injectable';
 
-export interface IConfig {
-  DISCORD_TOKEN: string;
-}
+@injectable()
+export class Config {
+  public token: string;
 
-export let config: IConfig;
+  constructor() {
+    try {
+      const result = dotenv.config();
+      if (result.error) {
+        throw result.error;
+      }
 
-try {
-  const result = dotenv.config();
-  if (result.error) {
-    throw result.error;
+      this.token = (result.parsed as any).DISCORD_TOKEN;
+    } catch (e) {
+      this.token = (process.env as any).DISCORD_TOKEN;
+    }
   }
-
-  config = result.parsed as unknown as IConfig;
-} catch (e) {
-  config = process.env as unknown as IConfig;
 }
-
-
