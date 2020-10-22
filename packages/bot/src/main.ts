@@ -1,3 +1,6 @@
+require('dotenv').config();
+require('newrelic');
+
 import 'reflect-metadata';
 import {Bot} from './bot/bot';
 import * as commands from './commands';
