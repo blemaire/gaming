@@ -25,8 +25,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Installing dependencies
-        run: npm i
-      - run: npx lerna bootstrap
+        run: npx lerna run bootstrap
       - name: building
         run: npx lerna build
         
