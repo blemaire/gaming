@@ -11,7 +11,6 @@ export class Bot {
   private commands: {[T: string]: interfaces.ServiceIdentifier<BotCommand>} | null = null;
 
   constructor(@inject(IClient) private client: Client, private config: Config) {
-    console.log('bot boot');
   }
 
   public setCommands(commands: any) {
@@ -19,11 +18,18 @@ export class Bot {
   }
 
   public start(): Promise<string> {
-    Object.values(this.commands || {}).forEach(name => {
+    const bootSequence: Promise<void>[] = [];
+    Object.entries(this.commands || {}).forEach(([key, command]) => {
       // The commands self configure, we just need to inject them from the container.
-      container.get(name as interfaces.ServiceIdentifier<any>);
+      const commandInstance = container.get(key) as BotCommand;
+
+      if (commandInstance.start && typeof commandInstance.start === 'function') {
+        bootSequence.push(commandInstance.start());
+      }
     });
 
-    return this.client.login(this.config.token);
+    return Promise.all(bootSequence).then(() => {
+      return this.client.login(this.config.discordToken);
+    });
   }
 }

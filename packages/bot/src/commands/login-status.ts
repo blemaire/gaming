@@ -1,7 +1,7 @@
 import {BotCommand} from '../bot/bot-command';
-import {injectable, On} from '../utils/injectable';
+import {injectableByName, On} from '../utils/injectable';
 
-@injectable()
+@injectableByName()
 export class LoginStatus extends BotCommand {
   @On('ready')
   public onReady() {

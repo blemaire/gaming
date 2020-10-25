@@ -3,7 +3,9 @@ import {injectable} from './utils/injectable';
 
 @injectable()
 export class Config {
-  public token: string;
+  public discordToken: string;
+
+  public twitchToken: string;
 
   constructor() {
     try {
@@ -12,9 +14,12 @@ export class Config {
         throw result.error;
       }
 
-      this.token = (result.parsed as any).DISCORD_TOKEN;
+      this.discordToken = (result.parsed as any).DISCORD_TOKEN;
+      this.twitchToken = (result.parsed as any).TWITCH_TOKEN;
+
     } catch (e) {
-      this.token = (process.env as any).DISCORD_TOKEN;
+      this.discordToken = (process.env as any).DISCORD_TOKEN;
+      this.twitchToken = (process.env as any).TWITCH_TOKEN;
     }
   }
 }
