@@ -5,7 +5,6 @@ import {IClient} from '../i-client';
 import {injectable} from '../utils/injectable';
 import {container} from '../utils/inversify.config';
 import {BotCommand} from './bot-command';
-import {ARGUMENT_LESS_EVENTS} from './events';
 
 @injectable()
 export class Bot {
@@ -21,13 +20,8 @@ export class Bot {
 
   public start(): Promise<string> {
     Object.values(this.commands || {}).forEach(name => {
-      const command = container.get(name as interfaces.ServiceIdentifier<any>);
-
-      Object.entries(ARGUMENT_LESS_EVENTS).forEach(([event, method]) => {
-        if (typeof command[method] === 'function') {
-          this.client.on(event, command[method].bind(command));
-        }
-      });
+      // The commands self configure, we just need to inject them from the container.
+      container.get(name as interfaces.ServiceIdentifier<any>);
     });
 
     return this.client.login(this.config.token);
