@@ -33,11 +33,11 @@ jobs:
 
       - name: Creating web artifact
         uses: actions/upload-artifact@v2
-          with:
-            name: thal-web
-            path: |
-              packages/thal-web/dist
-              packages/thal-web/node_modules
+        with:
+          name: thal-web
+          path: |
+            packages/thal-web/dist
+            packages/thal-web/node_modules
 
       - name: Creating bot artifact
         uses: actions/upload-artifact@v2
