@@ -19,6 +19,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
+    "postbuild": "npm prune --production",
     "start:dev": "nodemon --ext ts --exec \"tsc --incremental && npm run serve\"",
     "serve": "nodemon ./dist/main.js"
   },
