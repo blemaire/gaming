@@ -1,6 +1,6 @@
 import {Client} from 'discord.js';
 import {inject} from 'inversify';
-import {BotCommand} from '../bot/bot-command';
+import {BotCommand} from '../bot-command';
 import {IClient} from '../i-client';
 import {TwitchClient} from '../twitch/twitch-client';
 import {injectableByName, On} from '../utils/injectable';

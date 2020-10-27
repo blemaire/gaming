@@ -1,10 +1,10 @@
 import {Client} from 'discord.js';
 import {inject, interfaces} from 'inversify';
-import {Config} from '../config';
-import {IClient} from '../i-client';
-import {injectable} from '../utils/injectable';
-import {container} from '../utils/inversify.config';
 import {BotCommand} from './bot-command';
+import {Config} from './config';
+import {IClient} from './i-client';
+import {injectable} from './utils/injectable';
+import {container} from './utils/inversify.config';
 
 @injectable()
 export class Bot {

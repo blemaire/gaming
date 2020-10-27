@@ -1,5 +1,5 @@
 import {Message} from 'discord.js';
-import {BotCommand} from '../bot/bot-command';
+import {BotCommand} from '../bot-command';
 import {Command, injectableByName} from '../utils/injectable';
 
 @injectableByName('!')

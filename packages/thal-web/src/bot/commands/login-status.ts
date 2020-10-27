@@ -1,4 +1,4 @@
-import {BotCommand} from '../bot/bot-command';
+import {BotCommand} from '../bot-command';
 import {injectableByName, On} from '../utils/injectable';
 
 @injectableByName()
